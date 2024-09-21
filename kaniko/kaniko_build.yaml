@@ -23,8 +23,6 @@ spec:
         - name: kaniko
           image: gcr.io/kaniko-project/executor:latest
           args:
-            # - --context=https://github.com/devopsmap1/kaniko.git
-            #- --dockerfile=https://github.com/devopsmap1/kaniko.git/Dockerfile
             - --context=dir:///workspace/test-kaniko
             - --dockerfile=/workspace/test-kaniko/Dockerfile
             - --destination=devopsg1/dotnet-appnew:v1
