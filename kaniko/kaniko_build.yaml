@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kaniko-build
+spec:
+  ttlSecondsAfterFinished: 60
+  template:
+    metadata:
+      labels:
+        job-name: kaniko-build
+    spec:
+      serviceAccountName: kaniko
+      initContainers:
+        - name: git-clone
+          image: alpine/git:latest
+          command: ["sh", "-c"]
+          args:
+            - git clone https://github.com/devopsmap1/cicd.git /workspace/test-kaniko
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+      containers:
+        - name: kaniko
+          image: gcr.io/kaniko-project/executor:latest
+          args:
+            # - --context=https://github.com/devopsmap1/kaniko.git
+            #- --dockerfile=https://github.com/devopsmap1/kaniko.git/Dockerfile
+            - --context=dir:///workspace/test-kaniko
+            - --dockerfile=/workspace/test-kaniko/Dockerfile
+            - --destination=devopsg1/dotnet-appnew:v1
+            - --cache=true
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+            - name: docker-config
+              mountPath: /kaniko/.docker
+              readOnly: true
+      volumes:
+        - name: workspace
+          emptyDir: {}
+        - name: docker-config
+          projected:
+            sources:
+              - secret:
+                  name: regcred
+                  items:
+                    - key: .dockerconfigjson
+                      path: config.json  # The key should match the Docker secret key
+      restartPolicy: Never
