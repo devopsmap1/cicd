@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
       - name: bankapp
-        image: devopsg1/bankapp:15111098763
+        image: devopsg1/bankapp:1715111098763
         ports:
         - containerPort: 8080
         env:
