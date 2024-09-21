@@ -2,5 +2,5 @@ projectKey=multitier
 serverUrl=http://44.198.52.252:32001
 serverVersion=9.9.6.92038
 dashboardUrl=http://44.198.52.252:32001/dashboard?id=multitier
-ceTaskId=AZITdn6Zux-shFxaVoV-
-ceTaskUrl=http://44.198.52.252:32001/api/ce/task?id=AZITdn6Zux-shFxaVoV-
+ceTaskId=AZITg8kHux-shFxaVoWA
+ceTaskUrl=http://44.198.52.252:32001/api/ce/task?id=AZITg8kHux-shFxaVoWA
